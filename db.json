@@ -1,0 +1,28 @@
+{
+  "clients": [
+    {
+      "name": "Nícolas",
+      "email": "nicolas@mail.com",
+      "birthDate": "1999-02-23T03:00:00.000Z",
+      "phone": "(85) 99137-4261",
+      "id": "1"
+    },
+    {
+      "id": "2",
+      "name": "Jane Smith",
+      "email": "jane@example.com",
+      "cpf": "987.654.321-00",
+      "birthDate": "1985-11-23",
+      "contact": "(21) 91234-5678",
+      "country": 1,
+      "state": 3
+    },
+    {
+      "name": "bob",
+      "email": "bob@mail.com",
+      "birthDate": "11/03/2000",
+      "phone": "(85) 91234-5678",
+      "id": "cf9d"
+    }
+  ]
+}
