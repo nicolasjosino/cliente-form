@@ -1,0 +1,106 @@
+<p-card
+  [header]="isEdit ? 'Editar Cliente' : 'Cadastrar Cliente'"
+  class="form-card"
+>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="p-form">
+    <span class="p-field">
+      <label for="name">Nome</label>
+      <input
+        pInputText
+        id="name"
+        formControlName="name"
+        placeholder="John Doe"
+      />
+      @if (form.get('name')?.invalid && form.get('name')?.touched) {
+      <small class="p-error"> Nome é obrigatório (mínimo 3 caracteres) </small>
+      }
+    </span>
+
+    <span class="p-field">
+      <label for="email">Email</label>
+      <input
+        pInputText
+        type="email"
+        id="email"
+        formControlName="email"
+        placeholder="john@example.com"
+      />
+      @if (form.get('email')?.invalid && form.get('email')?.touched) {
+      <small class="p-error"> Insira um email válido </small>
+      }
+    </span>
+
+    <span class="p-field">
+      <label for="cpf">CPF</label>
+      <p-inputMask
+        mask="999.999.999-99"
+        id="cpf"
+        formControlName="cpf"
+        (onBlur)="validateCpf()"
+      ></p-inputMask>
+      @if (!isCpfValid) {
+      <small class="p-error"> Insira um CPF válido </small>
+      }
+    </span>
+
+    <div class="p-field">
+      <label for="birthDate">Data de Nascimento</label>
+      <p-datepicker
+        dateFormat="dd/mm/yy"
+        formControlName="birthDate"
+        (onSelect)="validateDate()"
+      />
+    </div>
+
+    <div class="p-field">
+      <label for="phone">Contato</label>
+      <p-inputMask
+        mask="(99) 99999-9999"
+        id="phone"
+        formControlName="phone"
+      ></p-inputMask>
+      @if (form.get('phone')?.invalid && form.get('phone')?.touched) {
+      <small class="p-error"> Insira um telefone válido </small>
+      }
+    </div>
+
+    <div class="p-field">
+      <label for="country">País</label>
+      <p-select
+        id="country"
+        formControlName="country"
+        [options]="countryOptions"
+        (onChange)="loadStates()"
+      ></p-select>
+    </div>
+
+    <div class="p-field">
+      <label for="state">Estado</label>
+      <p-select
+        id="state"
+        formControlName="state"
+        [options]="stateOptions"
+        [disabled]="!form.get('country')?.value"
+      ></p-select>
+    </div>
+
+    <div class="buttons">
+      <div>
+        <p-button
+          label="{{ isEdit ? 'Cancelar' : 'Voltar' }}"
+          [disabled]="loading"
+          (click)="routeToClients()"
+          severity="secondary"
+        ></p-button>
+      </div>
+      <div>
+        <p-button
+          label="{{ isEdit ? 'Salvar' : 'Cadastrar' }}"
+          [disabled]="loading"
+          (click)="onSubmit()"
+          severity="info"
+        ></p-button>
+      </div>
+    </div>
+  </form>
+</p-card>
