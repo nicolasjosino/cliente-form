@@ -98,6 +98,10 @@ export class ListClients implements OnInit {
     });
   }
 
+  addClient() {
+    this.router.navigate(['/clients', 'create']);
+  }
+
   editClient(client: Client) {
     this.router.navigate(['/clients', client.id]);
   }

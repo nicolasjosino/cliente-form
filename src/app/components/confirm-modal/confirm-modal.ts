@@ -26,12 +26,10 @@ export class ConfirmModalComponent {
       rejectButtonProps: {
         label: this.rejectLabel,
         severity: 'secondary',
-        outlined: true,
       },
       acceptButtonProps: {
         label: this.acceptLabel,
         severity: this.isWarning ? 'danger' : 'info',
-        outlined: true,
       },
       icon: this.isWarning ? 'pi pi-exclamation-triangle' : 'pi pi-info-circle',
       accept: () => this.accepted.emit(),

@@ -1,5 +1,11 @@
 .list-panel {
-  padding: 1em 0;
+  padding: 0 1em;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
 }
 
 .filter-input {
@@ -7,7 +13,7 @@
   max-width: 25%;
 
   @media (max-width: 768px) {
-    max-width: 100%;
+    max-width: 50%;
   }
 }
 

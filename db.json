@@ -3,26 +3,242 @@
     {
       "name": "Nícolas",
       "email": "nicolas@mail.com",
-      "birthDate": "1999-02-23T03:00:00.000Z",
+      "cpf": "276.195.870-55",
+      "birthDate": "24/02/1999",
       "phone": "(85) 99137-4261",
+      "country": {
+        "name": "Brasil",
+        "code": "BR"
+      },
+      "state": {
+        "name": "Ceará",
+        "code": "CE"
+      },
       "id": "1"
     },
     {
-      "id": "2",
-      "name": "Jane Smith",
-      "email": "jane@example.com",
-      "cpf": "987.654.321-00",
-      "birthDate": "1985-11-23",
-      "contact": "(21) 91234-5678",
-      "country": 1,
-      "state": 3
+      "name": "Bela",
+      "email": "bela@mail.com",
+      "cpf": "998.756.560-38",
+      "birthDate": "22/03/1999",
+      "phone": "",
+      "country": {
+        "name": "Portugal",
+        "code": "PT"
+      },
+      "state": {
+        "name": "Porto",
+        "code": "PRT"
+      },
+      "id": "2"
     },
     {
-      "name": "bob",
-      "email": "bob@mail.com",
-      "birthDate": "11/03/2000",
-      "phone": "(85) 91234-5678",
-      "id": "cf9d"
+      "name": "Carlos Silva",
+      "email": "carlos.silva@mail.com",
+      "cpf": "998.756.560-38",
+      "birthDate": "15/07/1985",
+      "phone": "(11) 98888-1234",
+      "country": {
+        "name": "Brasil",
+        "code": "BR"
+      },
+      "state": {
+        "name": "São Paulo",
+        "code": "SP"
+      },
+      "id": "3"
+    },
+    {
+      "name": "Ana Costa",
+      "email": "ana.costa@mail.com",
+      "cpf": "274.207.920-38",
+      "birthDate": "03/12/1992",
+      "phone": "(21) 97777-4321",
+      "country": {
+        "name": "Brasil",
+        "code": "BR"
+      },
+      "state": {
+        "name": "Rio de Janeiro",
+        "code": "RJ"
+      },
+      "id": "4"
+    },
+    {
+      "name": "Miguel Oliveira",
+      "email": "miguel.oliveira@mail.com",
+      "cpf": "858.271.770-91",
+      "birthDate": "09/05/1988",
+      "phone": "",
+      "country": {
+        "name": "Portugal",
+        "code": "PT"
+      },
+      "state": {
+        "name": "Leiria",
+        "code": "LEI"
+      },
+      "id": "5"
+    },
+    {
+      "name": "Sofia Martins",
+      "email": "sofia.martins@mail.com",
+      "cpf": "565.769.470-89",
+      "birthDate": "28/11/1995",
+      "phone": "(85) 99999-5555",
+      "country": {
+        "name": "Brasil",
+        "code": "BR"
+      },
+      "state": {
+        "name": "Pernambuco",
+        "code": "PE"
+      },
+      "id": "6"
+    },
+    {
+      "name": "João Pereira",
+      "email": "joao.pereira@mail.com",
+      "cpf": "246.698.170-00",
+      "birthDate": "17/04/1990",
+      "phone": "(31) 98888-7777",
+      "country": {
+        "name": "Brasil",
+        "code": "BR"
+      },
+      "state": {
+        "name": "Minas Gerais",
+        "code": "MG"
+      },
+      "id": "7"
+    },
+    {
+      "name": "Maria Fernandes",
+      "email": "maria.fernandes@mail.com",
+      "cpf": "664.553.870-74",
+      "birthDate": "01/01/1980",
+      "phone": "",
+      "country": {
+        "name": "Portugal",
+        "code": "PT"
+      },
+      "state": {
+        "name": "Porto",
+        "code": "POR"
+      },
+      "id": "8"
+    },
+    {
+      "name": "Lucas Rocha",
+      "email": "lucas.rocha@mail.com",
+      "cpf": "995.160.450-14",
+      "birthDate": "23/09/1997",
+      "phone": "(41) 91234-5678",
+      "country": {
+        "name": "Brasil",
+        "code": "BR"
+      },
+      "state": {
+        "name": "Paraná",
+        "code": "PR"
+      },
+      "id": "9"
+    },
+    {
+      "name": "Isabela Lima",
+      "email": "isabela.lima@mail.com",
+      "cpf": "605.922.220-04",
+      "birthDate": "30/06/1993",
+      "phone": "(71) 93456-7890",
+      "country": {
+        "name": "Brasil",
+        "code": "BR"
+      },
+      "state": {
+        "name": "Bahia",
+        "code": "BA"
+      },
+      "id": "10"
+    },
+    {
+      "name": "Pedro Sousa",
+      "email": "pedro.sousa@mail.com",
+      "cpf": "212.618.830-20",
+      "birthDate": "12/10/1982",
+      "phone": "",
+      "country": {
+        "name": "Portugal",
+        "code": "PT"
+      },
+      "state": {
+        "name": "Coimbra",
+        "code": "COI"
+      },
+      "id": "11"
+    },
+    {
+      "name": "Fernanda Alves",
+      "email": "fernanda.alves@mail.com",
+      "cpf": "897.255.310-78",
+      "birthDate": "05/08/1996",
+      "phone": "(62) 94567-1234",
+      "country": {
+        "name": "Brasil",
+        "code": "BR"
+      },
+      "state": {
+        "name": "Goiás",
+        "code": "GO"
+      },
+      "id": "12"
+    },
+    {
+      "name": "Rafael Teixeira",
+      "email": "rafael.teixeira@mail.com",
+      "cpf": "017.338.560-56",
+      "birthDate": "19/02/1984",
+      "phone": "(98) 95678-4321",
+      "country": {
+        "name": "Brasil",
+        "code": "BR"
+      },
+      "state": {
+        "name": "Maranhão",
+        "code": "MA"
+      },
+      "id": "13"
+    },
+    {
+      "name": "Clara Ribeiro",
+      "email": "clara.ribeiro@mail.com",
+      "cpf": "963.852.741-11",
+      "birthDate": "27/03/1991",
+      "phone": "",
+      "country": {
+        "name": "Portugal",
+        "code": "PT"
+      },
+      "state": {
+        "name": "Faro",
+        "code": "FAR"
+      },
+      "id": "14"
+    },
+    {
+      "name": "Gabriel Mendes",
+      "email": "gabriel.mendes@mail.com",
+      "cpf": "147.258.369-22",
+      "birthDate": "11/11/1987",
+      "phone": "(51) 96789-0123",
+      "country": {
+        "name": "Brasil",
+        "code": "BR"
+      },
+      "state": {
+        "name": "Rio Grande do Sul",
+        "code": "RS"
+      },
+      "id": "15"
     }
   ]
 }

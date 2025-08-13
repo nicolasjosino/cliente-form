@@ -1,19 +1,27 @@
-<p-panel header="Clientes" class="list-panel">
-  <p-inputgroup class="filter-input">
-    <input
-      pInputText
-      [formControl]="searchControl"
-      placeholder="Filtrar clientes..."
-    />
-    <p-inputgroup-addon>
-      <p-button
-        icon="pi pi-search"
-        severity="secondary"
-        variant="text"
-        (click)="applyFilter(searchControl.value ? searchControl.value : '')"
+<div header="Clientes" class="list-panel">
+  <h2>Clientes</h2>
+  <div class="list-header">
+    <p-inputgroup class="filter-input">
+      <input
+        pInputText
+        [formControl]="searchControl"
+        placeholder="Filtrar clientes..."
       />
-    </p-inputgroup-addon>
-  </p-inputgroup>
+      <p-inputgroup-addon>
+        <p-button
+          icon="pi pi-search"
+          severity="secondary"
+          variant="text"
+          (click)="applyFilter(searchControl.value ? searchControl.value : '')"
+        />
+      </p-inputgroup-addon>
+    </p-inputgroup>
+    <p-button
+      icon="pi pi-plus"
+      label="Adicionar Cliente"
+      (onClick)="addClient()"
+    ></p-button>
+  </div>
   <p-table
     class="table"
     [value]="filteredClients"
@@ -77,5 +85,13 @@
         </td>
       </tr>
     </ng-template>
+
+    <ng-template #footer>
+      <td colspan="8">
+        {{ filteredClients.length }}
+        clientes encontrados
+      </td>
+      <tr></tr>
+    </ng-template>
   </p-table>
-</p-panel>
+</div>
