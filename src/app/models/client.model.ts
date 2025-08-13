@@ -1,12 +1,12 @@
 import { Country, State } from '../utils/localities';
 
 export interface Client {
-  id?: number;
+  id: number;
   name: string;
   email: string;
   cpf: string;
-  birthDate: string;
-  contact: string;
+  birthDate: Date;
+  phone: string;
   country?: Country;
   state?: State;
 }
