@@ -2,8 +2,8 @@
   [header]="isEdit ? 'Editar Cliente' : 'Cadastrar Cliente'"
   class="form-card"
 >
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="p-form">
-    <span class="p-field">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+    <span class="field">
       <label for="name">Nome</label>
       <input
         pInputText
@@ -13,11 +13,11 @@
         minlength="3"
       />
       @if (form.get('name')?.invalid && form.get('name')?.touched) {
-      <small class="p-error"> Nome é obrigatório (mínimo 3 caracteres) </small>
+      <small class="error"> Nome é obrigatório (mínimo 3 caracteres) </small>
       }
     </span>
 
-    <span class="p-field">
+    <span class="field">
       <label for="email">Email</label>
       <input
         pInputText
@@ -27,11 +27,11 @@
         placeholder="joao@mail.com"
       />
       @if (form.get('email')?.invalid && form.get('email')?.touched) {
-      <small class="p-error"> Insira um email válido </small>
+      <small class="error"> Insira um email válido </small>
       }
     </span>
 
-    <span class="p-field">
+    <span class="field">
       <label for="cpf">CPF</label>
       <p-inputMask
         mask="999.999.999-99"
@@ -40,11 +40,11 @@
         (onComplete)="validateCpf()"
       ></p-inputMask>
       @if (!isCpfValid ) {
-      <small class="p-error"> Insira um CPF válido </small>
+      <small class="error"> Insira um CPF válido </small>
       }
     </span>
 
-    <div class="p-field">
+    <div class="field">
       <label for="birthDate">Data de Nascimento</label>
       <p-datepicker
         dateFormat="dd/mm/yy"
@@ -52,11 +52,11 @@
         (onSelect)="validateDate()"
       />
       @if (form.get('birthDate')?.invalid && form.get('birthDate')?.touched) {
-      <small class="p-error"> Insira uma data de nascimento válida </small>
+      <small class="error"> Insira uma data de nascimento válida </small>
       }
     </div>
 
-    <div class="p-field">
+    <div class="field">
       <label for="phone">Contato</label>
       <p-inputMask
         mask="(99) 99999-9999"
@@ -64,11 +64,11 @@
         formControlName="phone"
       ></p-inputMask>
       @if (form.get('phone')?.invalid && form.get('phone')?.touched) {
-      <small class="p-error"> Insira um telefone válido </small>
+      <small class="error"> Insira um telefone válido </small>
       }
     </div>
 
-    <div class="p-field">
+    <div class="field">
       <label for="country">País</label>
       <p-select
         id="country"
@@ -79,7 +79,7 @@
       ></p-select>
     </div>
 
-    <div class="p-field">
+    <div class="field">
       <label for="state">Estado</label>
       <p-select
         id="state"

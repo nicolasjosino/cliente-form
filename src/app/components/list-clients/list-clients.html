@@ -24,9 +24,11 @@
   </div>
   <p-table
     class="table"
+    [scrollable]="true"
+    scrollHeight="flex"
     [value]="filteredClients"
     [paginator]="true"
-    [rows]="5"
+    [rows]="10"
     [rowsPerPageOptions]="[5, 10, 20]"
     [loading]="loading"
   >
@@ -89,7 +91,9 @@
     <ng-template #footer>
       <td colspan="8">
         {{ filteredClients.length }}
-        cliente{{ filteredClients.length === 1 ? "" : "s" }} encontrado{{ filteredClients.length === 1 ? "" : "s" }}
+        cliente{{ filteredClients.length === 1 ? "" : "s" }} encontrado{{
+          filteredClients.length === 1 ? "" : "s"
+        }}
       </td>
       <tr></tr>
     </ng-template>
