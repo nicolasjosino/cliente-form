@@ -89,7 +89,7 @@
     <ng-template #footer>
       <td colspan="8">
         {{ filteredClients.length }}
-        clientes encontrados
+        cliente{{ filteredClients.length === 1 ? "" : "s" }} encontrado{{ filteredClients.length === 1 ? "" : "s" }}
       </td>
       <tr></tr>
     </ng-template>
