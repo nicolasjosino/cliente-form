@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -18,6 +18,7 @@ import { ClientService } from '../../services/client.service';
 import { COUNTRIES } from '../../utils/localities';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { ConfirmModalComponent } from '../confirm-modal/confirm-modal';
 
 @Component({
   selector: 'app-create-update-client',
@@ -31,6 +32,7 @@ import { MessageService } from 'primeng/api';
     FloatLabelModule,
     SelectModule,
     ToastModule,
+    ConfirmModalComponent,
   ],
   templateUrl: './create-update-client.html',
   styleUrl: './create-update-client.scss',
@@ -46,6 +48,7 @@ export class CreateUpdateClient implements OnInit {
     code: country.code,
   }));
   stateOptions: { name: string; code: string }[] = [];
+  @ViewChild('updateModal') updateModal!: ConfirmModalComponent;
 
   constructor(
     private fb: FormBuilder,
@@ -80,7 +83,6 @@ export class CreateUpdateClient implements OnInit {
 
       cpfControl?.updateValueAndValidity();
     });
-
 
     if (this.isEdit) {
       this.loadClient();

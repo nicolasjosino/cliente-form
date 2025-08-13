@@ -1,5 +1,12 @@
 <p-panel header="Clientes" class="list-panel">
-  <p-table class="table" [value]="clients" [loading]="loading">
+  <p-table
+    class="table"
+    [value]="clients"
+    [paginator]="true"
+    [rows]="5"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    [loading]="loading"
+  >
     <ng-template #header>
       <tr>
         <th>Nome</th>
@@ -19,7 +26,7 @@
         <td>{{ client.email }}</td>
         <td>{{ client.cpf ? client.cpf : "-" }}</td>
         <td>{{ client.birthDate }}</td>
-        <td>{{ client.contact ? client.contact : "-" }}</td>
+        <td>{{ client.phone ? client.phone : "-" }}</td>
         <td>{{ client.country?.code ? client.country?.code : "-" }}</td>
         <td>{{ client.state?.code ? client.state?.code : "-" }}</td>
         <td class="menu-cell">
@@ -30,14 +37,27 @@
               class="p-button-rounded p-button-text p-button-info"
               (click)="editClient(client)"
               pTooltip="Editar"
+              tooltipPosition="top"
             ></p-button>
             <p-button
               icon="pi pi-times"
               severity="danger"
               class="p-button-rounded p-button-text p-button-danger"
-              (click)="deleteClient(client)"
+              (click)="confirmDelete(client)"
               pTooltip="Excluir"
+              tooltipPosition="top"
             ></p-button>
+
+            <app-confirm-modal
+              #deleteModal
+              title="Excluir cliente"
+              message="Tem certeza que deseja excluir este cliente?"
+              acceptLabel="Excluir"
+              rejectLabel="Cancelar"
+              [isWarning]="true"
+              (accepted)="deleteClient()"
+            >
+            </app-confirm-modal>
           </div>
         </td>
       </tr>

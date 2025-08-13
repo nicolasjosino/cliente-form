@@ -103,10 +103,19 @@
         <p-button
           label="{{ isEdit ? 'Salvar' : 'Cadastrar' }}"
           [disabled]="loading"
-          (click)="onSubmit()"
+          (click)="isEdit ? updateModal.show() : onSubmit()"
           severity="info"
         ></p-button>
       </div>
     </div>
+    <app-confirm-modal
+      #updateModal
+      title="Editar cliente"
+      message="Tem certeza que deseja editar este cliente?"
+      acceptLabel="Salvar"
+      rejectLabel="Cancelar"
+      (accepted)="onSubmit()"
+    >
+    </app-confirm-modal>
   </form>
 </p-card>

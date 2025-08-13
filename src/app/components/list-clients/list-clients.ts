@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { ClientService } from '../../services/client.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Client } from '../../models/client.model';
-import { CardModule } from 'primeng/card';
+import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
+import { PanelModule } from 'primeng/panel';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
-import { PanelModule } from 'primeng/panel';
-import { MessageService } from 'primeng/api';
-
+import { Client } from '../../models/client.model';
+import { ClientService } from '../../services/client.service';
+import { ConfirmModalComponent } from '../confirm-modal/confirm-modal';
 @Component({
   selector: 'app-list-clients',
   imports: [
@@ -19,6 +19,7 @@ import { MessageService } from 'primeng/api';
     TableModule,
     TooltipModule,
     PanelModule,
+    ConfirmModalComponent,
   ],
   templateUrl: './list-clients.html',
   styleUrl: './list-clients.scss',
@@ -26,6 +27,9 @@ import { MessageService } from 'primeng/api';
 export class ListClients implements OnInit {
   loading = false;
   clients: Client[] = [];
+  @ViewChild('deleteModal') deleteModal!: ConfirmModalComponent;
+  selectedClientId!: number;
+
   constructor(
     private clientService: ClientService,
     private router: Router,
@@ -45,7 +49,11 @@ export class ListClients implements OnInit {
       },
       error: () => {
         this.loading = false;
-        console.error('Erro ao carregar clientes');
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: 'Erro ao carregar clientes.',
+        });
       },
     });
   }
@@ -54,19 +62,22 @@ export class ListClients implements OnInit {
     this.router.navigate(['/clients', client.id]);
   }
 
-  deleteClient(client: Client) {
-    if (confirm(`Tem certeza de que deseja excluir ${client.name}?`)) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Exclusão',
-        detail: 'Cliente excluído com sucesso.',
-      });
-      this.clientService.deleteClient(client.id!).subscribe({
-        next: () => {
-          this.loadClients();
-        },
-        error: () => console.error('Erro ao excluir cliente'),
-      });
-    }
+  confirmDelete(client: Client) {
+    this.selectedClientId = client.id!;
+    this.deleteModal.show();
+  }
+
+  deleteClient() {
+    this.clientService.deleteClient(this.selectedClientId).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Exclusão',
+          detail: 'Cliente excluído com sucesso.',
+        });
+        this.loadClients();
+      },
+      error: () => console.error('Erro ao excluir cliente'),
+    });
   }
 }
