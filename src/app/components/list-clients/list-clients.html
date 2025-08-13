@@ -1,7 +1,22 @@
 <p-panel header="Clientes" class="list-panel">
+  <p-inputgroup class="filter-input">
+    <input
+      pInputText
+      [formControl]="searchControl"
+      placeholder="Filtrar clientes..."
+    />
+    <p-inputgroup-addon>
+      <p-button
+        icon="pi pi-search"
+        severity="secondary"
+        variant="text"
+        (click)="applyFilter(searchControl.value ? searchControl.value : '')"
+      />
+    </p-inputgroup-addon>
+  </p-inputgroup>
   <p-table
     class="table"
-    [value]="clients"
+    [value]="filteredClients"
     [paginator]="true"
     [rows]="5"
     [rowsPerPageOptions]="[5, 10, 20]"

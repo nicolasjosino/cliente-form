@@ -10,6 +10,10 @@ import { TooltipModule } from 'primeng/tooltip';
 import { Client } from '../../models/client.model';
 import { ClientService } from '../../services/client.service';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 @Component({
   selector: 'app-list-clients',
   imports: [
@@ -20,6 +24,9 @@ import { ConfirmModalComponent } from '../confirm-modal/confirm-modal';
     TooltipModule,
     PanelModule,
     ConfirmModalComponent,
+    ReactiveFormsModule,
+    InputGroupModule,
+    InputGroupAddonModule,
   ],
   templateUrl: './list-clients.html',
   styleUrl: './list-clients.scss',
@@ -27,6 +34,9 @@ import { ConfirmModalComponent } from '../confirm-modal/confirm-modal';
 export class ListClients implements OnInit {
   loading = false;
   clients: Client[] = [];
+  filteredClients: Client[] = []; // Lista já filtrada para mostrar na tela
+  searchControl = new FormControl('');
+  private destroy$ = new Subject<void>();
   @ViewChild('deleteModal') deleteModal!: ConfirmModalComponent;
   selectedClientId!: number;
 
@@ -38,6 +48,29 @@ export class ListClients implements OnInit {
 
   ngOnInit(): void {
     this.loadClients();
+
+    this.searchControl.valueChanges
+      .pipe(debounceTime(300), distinctUntilChanged(), takeUntil(this.destroy$))
+      .subscribe((searchTerm) => {
+        this.applyFilter(searchTerm ?? '');
+      });
+  }
+
+  applyFilter(searchTerm: string) {
+    if (!searchTerm) {
+      this.filteredClients = [...this.clients]; // se vazio, mostra tudo
+      return;
+    }
+
+    const term = searchTerm.toLowerCase();
+    this.filteredClients = this.clients.filter(
+      (client) =>
+        client.name.toLowerCase().includes(term) ||
+        client.email.toLowerCase().includes(term) ||
+        client.cpf?.includes(term) ||
+        client.country?.name.toLowerCase().includes(term) ||
+        client.state?.name.toLowerCase().includes(term)
+    );
   }
 
   loadClients() {
@@ -45,6 +78,7 @@ export class ListClients implements OnInit {
     this.clientService.getClients().subscribe({
       next: (data) => {
         this.clients = data;
+        this.filteredClients = data;
         this.loading = false;
       },
       error: () => {
@@ -79,5 +113,10 @@ export class ListClients implements OnInit {
       },
       error: () => console.error('Erro ao excluir cliente'),
     });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

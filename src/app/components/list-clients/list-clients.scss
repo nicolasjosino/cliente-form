@@ -1,9 +1,17 @@
-.list-card {
+.list-panel {
   padding: 1em 0;
 }
 
+.filter-input {
+  margin-bottom: 1em;
+  max-width: 25%;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
+}
+
 .table {
-  width: 7%;
   border-collapse: collapse;
 
   th,
