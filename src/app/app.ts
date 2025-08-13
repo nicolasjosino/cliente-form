@@ -12,7 +12,7 @@ import { ToastModule } from 'primeng/toast';
 })
 export class App {
   protected readonly title = signal('cliente-form');
-  protected readonly items = [
+  items = [
     {
       label: 'Clientes',
       items: [
