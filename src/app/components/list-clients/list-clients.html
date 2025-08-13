@@ -1,0 +1,46 @@
+<p-panel header="Clientes" class="list-panel">
+  <p-table class="table" [value]="clients" [loading]="loading">
+    <ng-template #header>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>CPF</th>
+        <th>Data de Nascimento</th>
+        <th>Contato</th>
+        <th>País</th>
+        <th>Estado</th>
+        <th>Ações</th>
+      </tr>
+    </ng-template>
+
+    <ng-template #body let-client>
+      <tr>
+        <td>{{ client.name }}</td>
+        <td>{{ client.email }}</td>
+        <td>{{ client.cpf ? client.cpf : "-" }}</td>
+        <td>{{ client.birthDate }}</td>
+        <td>{{ client.contact ? client.contact : "-" }}</td>
+        <td>{{ client.country?.code ? client.country?.code : "-" }}</td>
+        <td>{{ client.state?.code ? client.state?.code : "-" }}</td>
+        <td class="menu-cell">
+          <div class="menu-buttons">
+            <p-button
+              icon="pi pi-pencil"
+              severity="secondary"
+              class="p-button-rounded p-button-text p-button-info"
+              (click)="editClient(client)"
+              pTooltip="Editar"
+            ></p-button>
+            <p-button
+              icon="pi pi-times"
+              severity="danger"
+              class="p-button-rounded p-button-text p-button-danger"
+              (click)="deleteClient(client)"
+              pTooltip="Excluir"
+            ></p-button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-panel>
