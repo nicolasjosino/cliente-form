@@ -14,6 +14,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { LogService } from '../../services/log.service';
 @Component({
   selector: 'app-list-clients',
   imports: [
@@ -43,7 +44,8 @@ export class ListClients implements OnInit {
   constructor(
     private clientService: ClientService,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private logService: LogService
   ) {}
 
   ngOnInit(): void {
@@ -80,6 +82,9 @@ export class ListClients implements OnInit {
         this.clients = data;
         this.filteredClients = data;
         this.loading = false;
+        this.logService.info('Clientes carregados com sucesso', 'ListClients', {
+          clients: data,
+        });
       },
       error: () => {
         this.loading = false;
@@ -88,6 +93,7 @@ export class ListClients implements OnInit {
           summary: 'Erro',
           detail: 'Erro ao carregar clientes.',
         });
+        this.logService.error('Erro ao carregar clientes', 'ListClients');
       },
     });
   }

@@ -19,6 +19,7 @@ import { COUNTRIES } from '../../utils/localities';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal';
+import { LogService } from '../../services/log.service';
 
 @Component({
   selector: 'app-create-update-client',
@@ -55,7 +56,8 @@ export class CreateUpdateClient implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private clientService: ClientService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private logService: LogService
   ) {}
 
   ngOnInit(): void {
@@ -111,8 +113,16 @@ export class CreateUpdateClient implements OnInit {
         this.loadStates();
         this.form.get('state')?.setValue(client.state);
         this.loading = false;
+        this.logService.info(
+          'Cliente carregado com sucesso',
+          'CreateUpdateClient',
+          { client }
+        );
       },
-      error: () => (this.loading = false),
+      error: () => {
+        this.loading = false;
+        this.logService.error('Erro ao carregar cliente', 'CreateUpdateClient');
+      },
     });
   }
 
@@ -206,6 +216,11 @@ export class CreateUpdateClient implements OnInit {
             summary: 'Sucesso',
             detail: 'Cliente atualizado com sucesso!',
           });
+          this.logService.info(
+            'Cliente atualizado com sucesso',
+            'CreateUpdateClient',
+            { clientId: this.clientId }
+          );
         },
       });
     } else {
@@ -217,6 +232,11 @@ export class CreateUpdateClient implements OnInit {
             detail: 'Cliente cadastrado com sucesso!',
           });
           this.router.navigate(['/clients']);
+          this.logService.info(
+            'Cliente cadastrado com sucesso',
+            'CreateUpdateClient',
+            { clientId: this.clientId }
+          );
         },
       });
     }
