@@ -38,6 +38,7 @@ export const appConfig: ApplicationConfig = {
           'Sábado',
         ],
         dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+        dayNamesMin: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
         monthNames: [
           'Janeiro',
           'Fevereiro',
@@ -66,6 +67,7 @@ export const appConfig: ApplicationConfig = {
           'Nov',
           'Dez',
         ],
+        emptySearchMessage: 'Nenhum resultado encontrado',
       },
     }),
   ],
