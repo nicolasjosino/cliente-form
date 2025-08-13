@@ -42,10 +42,10 @@ export class CreateUpdateClient implements OnInit {
   isCpfValid = true;
   loading = false;
   countryOptions = COUNTRIES.map((country) => ({
-    label: country.name,
-    key: country.code,
+    name: country.name,
+    code: country.code,
   }));
-  stateOptions: { label: string; key: string }[] = [];
+  stateOptions: { name: string; code: string }[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -62,14 +62,25 @@ export class CreateUpdateClient implements OnInit {
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      cpf: ['', Validators.required],
+      cpf: [''],
       birthDate: [null, Validators.required],
       phone: [''],
       country: [null],
       state: [null],
     });
 
-    this.loadStates();
+    this.form.get('country')?.valueChanges.subscribe((country) => {
+      const cpfControl = this.form.get('cpf');
+
+      if (country?.name === 'Brasil' && country?.code === 'BR') {
+        cpfControl?.addValidators(Validators.required);
+      } else {
+        cpfControl?.removeValidators(Validators.required);
+      }
+
+      cpfControl?.updateValueAndValidity();
+    });
+
 
     if (this.isEdit) {
       this.loadClient();
@@ -77,15 +88,14 @@ export class CreateUpdateClient implements OnInit {
   }
 
   loadStates() {
-    this.stateOptions = [];
     const selectedCountry = this.form.get('country')?.value;
     if (selectedCountry) {
       this.stateOptions = COUNTRIES.filter(
-        (country) => country.code === selectedCountry.key
+        (country) => country.code === selectedCountry.code
       ).flatMap((country) =>
         country.states.map((state) => ({
-          label: state.name,
-          key: state.code,
+          name: state.name,
+          code: state.code,
         }))
       );
     }
@@ -96,6 +106,8 @@ export class CreateUpdateClient implements OnInit {
     this.clientService.getClientById(this.clientId!).subscribe({
       next: (client: Client) => {
         this.form.patchValue(client);
+        this.loadStates();
+        this.form.get('state')?.setValue(client.state);
         this.loading = false;
       },
       error: () => (this.loading = false),
@@ -110,22 +122,18 @@ export class CreateUpdateClient implements OnInit {
       return;
     }
 
-    // Remove tudo que não for número
     const cleaned = cpf.replace(/\D/g, '');
 
-    // Deve ter exatamente 11 dígitos
     if (cleaned.length !== 11) {
       this.isCpfValid = false;
       return;
     }
 
-    // Elimina CPFs inválidos conhecidos
     if (/^(\d)\1+$/.test(cleaned)) {
       this.isCpfValid = false;
       return;
     }
 
-    // Validação do primeiro dígito
     let sum = 0;
     for (let i = 0; i < 9; i++) {
       sum += parseInt(cleaned.charAt(i)) * (10 - i);
@@ -137,7 +145,6 @@ export class CreateUpdateClient implements OnInit {
       return;
     }
 
-    // Validação do segundo dígito
     sum = 0;
     for (let i = 0; i < 10; i++) {
       sum += parseInt(cleaned.charAt(i)) * (11 - i);
@@ -149,7 +156,6 @@ export class CreateUpdateClient implements OnInit {
       return;
     }
 
-    // CPF válido
     this.isCpfValid = true;
   }
 
@@ -168,6 +174,12 @@ export class CreateUpdateClient implements OnInit {
   onSubmit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erro',
+        detail:
+          'Por favor, preencha todos os campos obrigatórios corretamente.',
+      });
       return;
     }
 

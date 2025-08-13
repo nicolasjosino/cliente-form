@@ -9,7 +9,8 @@
         pInputText
         id="name"
         formControlName="name"
-        placeholder="John Doe"
+        placeholder="Insira o nome completo"
+        minlength="3"
       />
       @if (form.get('name')?.invalid && form.get('name')?.touched) {
       <small class="p-error"> Nome é obrigatório (mínimo 3 caracteres) </small>
@@ -23,7 +24,7 @@
         type="email"
         id="email"
         formControlName="email"
-        placeholder="john@example.com"
+        placeholder="joao@mail.com"
       />
       @if (form.get('email')?.invalid && form.get('email')?.touched) {
       <small class="p-error"> Insira um email válido </small>
@@ -36,9 +37,9 @@
         mask="999.999.999-99"
         id="cpf"
         formControlName="cpf"
-        (onBlur)="validateCpf()"
+        (onComplete)="validateCpf()"
       ></p-inputMask>
-      @if (!isCpfValid) {
+      @if (!isCpfValid ) {
       <small class="p-error"> Insira um CPF válido </small>
       }
     </span>
@@ -50,6 +51,9 @@
         formControlName="birthDate"
         (onSelect)="validateDate()"
       />
+      @if (form.get('birthDate')?.invalid && form.get('birthDate')?.touched) {
+      <small class="p-error"> Insira uma data de nascimento válida </small>
+      }
     </div>
 
     <div class="p-field">
@@ -70,6 +74,7 @@
         id="country"
         formControlName="country"
         [options]="countryOptions"
+        optionLabel="name"
         (onChange)="loadStates()"
       ></p-select>
     </div>
@@ -80,6 +85,7 @@
         id="state"
         formControlName="state"
         [options]="stateOptions"
+        optionLabel="name"
         [disabled]="!form.get('country')?.value"
       ></p-select>
     </div>
